@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/npm/l/lls-rc-pagination.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+![Version](https://img.shields.io/npm/v/lls-rc-pagination.svg?style=flat-square)
+![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/lls-rc-pagination.svg?style=flat-square)
+![npm type definitions](https://img.shields.io/npm/types/lls-rc-pagination.svg?style=flat-square)
+
 # lls-rc-pagination
 
 Lightweight, customizable pagination widget using TypesScript and React 16
@@ -30,9 +35,11 @@ import 'lls-rc-pagination/dist/pagination.css'
 ```
 {
   defaultCurrPage: number;
+  /** Maximum displayed buttons until view will switch to group mode. Default: 10 */
   maxViewBtnLength: number;
+  /** The length of displayed button group, supports only odd numbers. Default: 5 */
   btnGroupLength: number;
-  pageSize: number;
+  pageSize: number; // Default: 100
   leftBtnTxt: string;
   rightBtnTxt: string;
   totalItems: number;
