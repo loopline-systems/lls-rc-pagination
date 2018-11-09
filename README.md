@@ -2,6 +2,8 @@
 ![Version](https://img.shields.io/npm/v/lls-rc-pagination.svg?style=flat-square)
 ![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/lls-rc-pagination.svg?style=flat-square)
 ![npm type definitions](https://img.shields.io/npm/types/lls-rc-pagination.svg?style=flat-square)
+[![Build Status](http://img.shields.io/travis/loopline-systems/lls-rc-pagination.svg?style=flat-square)](https://travis-ci.com/loopline-systems/lls-rc-pagination)
+[![Coverage Status](https://img.shields.io/coveralls/loopline-systems/lls-rc-pagination.svg?style=flat-square)](https://coveralls.io/github/loopline-systems/lls-rc-pagination?branch=master)
 
 # lls-rc-pagination
 
