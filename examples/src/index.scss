@@ -1,0 +1,25 @@
+.pages-container {
+  width: 250px;
+  height: 350px;
+  border: 1px solid #000;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .page {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    display: none;
+
+    &.cur {
+      display: block;
+    }
+  }
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 50px;
+}

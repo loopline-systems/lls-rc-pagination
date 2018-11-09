@@ -1,0 +1,72 @@
+.lls-pagination-container {
+  display: flex;
+  justify-content: center;
+
+  .lls-button-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .lls-page-btn,
+  .lls-button {
+    color: #838797;
+    cursor: pointer;
+
+    &:hover {
+      color: #4e546b;
+    }
+  }
+
+  .lls-button {
+    border: 0;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .lls-arr-btn-left {
+    margin-right: 25px;
+
+    span::before {
+      content: "\02039";
+      font-size: 16px;
+      margin-right: 5px;
+    }
+  }
+
+  .lls-arr-btn-right {
+    margin-left: 20px;
+
+    span::after {
+      content: "\0203A";
+      font-size: 16px;
+      margin-left: 5px;
+    }
+  }
+
+  .lls-page-btn {
+    font-size: 1rem;
+    font-weight: normal;
+    padding: 2px 5px;
+    margin-right: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.cur {
+      text-decoration: none;
+      font-weight: 600;
+      color: #4e546b;
+      cursor: default;
+    }
+  }
+}
+
+.lls-dots-box {
+  margin-right: 5px;
+}
