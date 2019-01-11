@@ -1,6 +1,6 @@
 {
   "name": "lls-rc-pagination",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "Pagination with customisable styles",
   "main": "dist/pagination.js",
   "browserslist": "last 2 versions",
