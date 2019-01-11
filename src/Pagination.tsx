@@ -54,7 +54,7 @@ export default class Pagination extends PureComponent<Props, State> {
     }
 
     this.state = {
-      buttons: Array.from({ length: pages }, (btn, i) => i + 1),
+      buttons: Array.from({ length: pages }, (__, i) => i + 1),
       showLeftArr: false,
       showRightArr: false,
       curPageIndex: this.defaultCurrPage - 1,

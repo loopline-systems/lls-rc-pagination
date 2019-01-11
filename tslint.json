@@ -5,16 +5,19 @@
     "tslint-react",
     "tslint-eslint-rules"
   ],
-  "jsRules": {},
+  "jsRules": {
+    "quotemark": [true, "single", "jsx-double", "avoid-escape", "avoid-template"],
+    "object-literal-sort-keys": false,
+    "variable-name": [true, "ban-keywords"]
+  },
   "rules": {
     "jsx-no-multiline-js": false,
     "jsx-boolean-value": [true, "never"],
     "jsx-space-before-trailing-slash": true,
     "jsx-key": true,
-    "jsx-use-translation-function": [true, "allow-punctuation", "allow-htmlentities"],
     "jsx-wrap-multiline": true,
+    "jsx-no-lambda": true,
     "jsx-no-bind": true,
-    "max-line-length": [true, 120],
     "quotemark": [true, "single", "jsx-double", "avoid-escape", "avoid-template"],
     "interface-name": false,
     "member-access": [true, "no-public"],
@@ -34,7 +37,6 @@
       "check-type-operator",
       "check-preblock"
     ],
-    "no-unused-variable": true,
     "object-curly-spacing": [true, "always"],
     "array-bracket-spacing": [true, "never"],
     "block-spacing": true,
@@ -50,7 +52,8 @@
         "typeLiterals": "always"
       },
       "esSpecCompliant": true
-    }]
+    }],
+    "max-line-length": [true, { "limit": 110, "ignore-pattern": "^import |`(.+)`" }]
   },
   "rulesDirectory": []
 }

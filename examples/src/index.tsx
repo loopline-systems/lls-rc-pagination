@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Pagination from '../../src/Pagination';
 import { RouteComponentProps, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import Pagination from '../../src/Pagination';
 import './index.scss';
 import '../../src/pagination.scss';
 
@@ -33,7 +34,7 @@ class App extends React.Component<{}, State> {
       <>
         <div>
           <div className="pages-container">
-            {Array.from({ length: this.pageCount }, (itm, i) => (
+            {Array.from({ length: this.pageCount }, (__, i) => (
               <div key={i} className={`page ${this.state.curPage === i ? 'cur' : ''}`}>
                 Page #{i + 1}
               </div>
@@ -55,7 +56,19 @@ class App extends React.Component<{}, State> {
             location={location}
             totalItems={300}
             pageSize={20}
-            onChange={(n) => {}}
+            onChange={() => {}}
+          />
+        </div>
+        <h2>Pagination with more then 10 pages and extended center button group:</h2>
+        <div>
+          <Pagination
+            marginTop={40}
+            history={history}
+            location={location}
+            btnGroupLength={9}
+            totalItems={400}
+            pageSize={20}
+            onChange={() => {}}
           />
         </div>
       </>
@@ -65,7 +78,7 @@ class App extends React.Component<{}, State> {
   render() {
     return(
       <Router>
-        <Route exact path="/" component={this.renderPage} />
+        <Route component={this.renderPage} />
       </Router>
     );
   }
