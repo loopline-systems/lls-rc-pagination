@@ -1,7 +1,8 @@
 src
 examples
 test
-tsconfig.js
-tslint.js
-webpack.config.js
+tsconfig.json
+tslint.json
+.travis.yml
 .gitignore
+webpack.config.js
