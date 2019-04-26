@@ -166,3 +166,104 @@ exports[`Pagination renders correctly with more then 10 pages 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders correctly with page input 1`] = `
+<div
+  className="lls-pagination-container"
+  style={
+    Object {
+      "marginTop": undefined,
+    }
+  }
+>
+  <div
+    className="lls-button-box"
+  >
+    <button
+      className="lls-arr-btn-left lls-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "visibility": "hidden",
+        }
+      }
+    >
+      <span>
+        Previous page
+      </span>
+    </button>
+    <button
+      className="lls-page-btn lls-button cur"
+      key="0"
+      onClick={[Function]}
+    >
+      1
+    </button>
+    <button
+      className="lls-page-btn lls-button "
+      key="1"
+      onClick={[Function]}
+    >
+      2
+    </button>
+    <button
+      className="lls-page-btn lls-button "
+      key="2"
+      onClick={[Function]}
+    >
+      3
+    </button>
+    <button
+      className="lls-page-btn lls-button "
+      key="3"
+      onClick={[Function]}
+    >
+      4
+    </button>
+    <button
+      className="lls-page-btn lls-button "
+      key="4"
+      onClick={[Function]}
+    >
+      5
+    </button>
+    <div
+      className="lls-dots-box"
+      key="5"
+    >
+      ...
+    </div>
+    <button
+      className="lls-page-btn lls-button "
+      key="14"
+      onClick={[Function]}
+    >
+      15
+    </button>
+    <button
+      className="lls-arr-btn-right lls-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "visibility": "visible",
+        }
+      }
+    >
+      <span>
+        Next page
+      </span>
+    </button>
+    <div
+      className="lls-goto-txt"
+    >
+      Go to:
+    </div>
+    <input
+      className="lls-goto-input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+  </div>
+</div>
+`;

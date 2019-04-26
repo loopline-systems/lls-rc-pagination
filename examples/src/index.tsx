@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { RouteComponentProps, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Pagination from '../../src/Pagination';
-import './index.scss';
 import '../../src/pagination.scss';
+
+import './index.scss';
 
 interface State {
   curPage: number;
@@ -69,6 +70,7 @@ class App extends React.Component<{}, State> {
             totalItems={400}
             pageSize={20}
             onChange={() => {}}
+            showPageInput
           />
         </div>
       </>
@@ -76,7 +78,7 @@ class App extends React.Component<{}, State> {
   }
 
   render() {
-    return(
+    return (
       <Router>
         <Route component={this.renderPage} />
       </Router>

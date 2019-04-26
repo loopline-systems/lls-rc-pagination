@@ -1,4 +1,4 @@
-import React, { ReactNode, PureComponent } from 'react';
+import React, { ReactNode, PureComponent, FocusEvent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -6,6 +6,7 @@ interface Props extends DefaultProps, Pick<RouteComponentProps, 'history' | 'loc
   totalItems: number;
   onChange: (pageNumber: number) => void;
   marginTop?: number;
+  showPageInput?: boolean;
 }
 
 interface DefaultProps {
@@ -17,6 +18,7 @@ interface DefaultProps {
   pageSize: number;
   leftBtnTxt: string;
   rightBtnTxt: string;
+  pageInpLabel: string;
 }
 
 interface State {
@@ -34,6 +36,7 @@ export default class Pagination extends PureComponent<Props, State> {
     pageSize: 100,
     leftBtnTxt: 'Previous page',
     rightBtnTxt: 'Next page',
+    pageInpLabel: 'Go to:',
   };
 
   defaultCurrPage = 1;
@@ -41,6 +44,7 @@ export default class Pagination extends PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
+
     const pages = Math.ceil(props.totalItems / props.pageSize);
 
     if (pages < props.defaultCurrPage) {
@@ -66,7 +70,9 @@ export default class Pagination extends PureComponent<Props, State> {
   }
 
   changeCur = (index: number) => {
-    if (this.state.curPageIndex === index) { return; }
+    if (this.state.curPageIndex === index) {
+      return;
+    }
 
     this.setState({ curPageIndex: index });
 
@@ -107,6 +113,30 @@ export default class Pagination extends PureComponent<Props, State> {
     });
   }
 
+  inputGoToFocus = (e: FocusEvent) => {
+    e.currentTarget.addEventListener('keyup', this.goToPage);
+  }
+
+  inputGoToBlur = (e: FocusEvent) => {
+    e.currentTarget.removeEventListener('keyup', this.goToPage);
+  }
+
+  goToPage = (e: Event | KeyboardEvent | any) => {
+    const val = (e as any).target!.value ? Number((e as any).target!.value) : '';
+    const pagesLength = this.state.buttons.length;
+    if (typeof val === 'number' && isNaN(val)) {
+      (e as any).target!.value = '';
+    }
+    if (val > pagesLength) {
+      (e as any).target!.value = pagesLength;
+    } else if (val === 0) {
+      (e as any).target!.value = 1;
+    }
+    if (val && (e as KeyboardEvent).keyCode === 13) {
+      this.changeCur(val - 1);
+    }
+  }
+
   renderBtn = (btn: number, i: number) => {
     const changeCurrent = () => this.changeCur(i);
     return (
@@ -120,17 +150,19 @@ export default class Pagination extends PureComponent<Props, State> {
     );
   }
 
-  renderDotsBox = (i: number) => <div key={i} className="lls-dots-box">...</div>;
+  renderDotsBox = (i: number) => (
+    <div key={i} className="lls-dots-box">
+      ...
+    </div>
+  )
 
   renderButtons = (): ReactNode => {
     let buttonNodes: ReactNode = null;
 
     // Render all buttons mode
     if (this.props.maxViewBtnLength >= this.state.buttons.length) {
-      buttonNodes = this.state.buttons.map((btn, i) => (
-        this.renderBtn(btn, i)
-      ));
-    // Render group buttons mode
+      buttonNodes = this.state.buttons.map((btn, i) => this.renderBtn(btn, i));
+      // Render group buttons mode
     } else {
       const curIndex = this.state.curPageIndex;
       const btnsLength = this.state.buttons.length;
@@ -146,7 +178,7 @@ export default class Pagination extends PureComponent<Props, State> {
             return this.renderDotsBox(i);
           }
         });
-      // Render first page button, dots marker and last buttons group
+        // Render first page button, dots marker and last buttons group
       } else if (curIndex > lastBtnGroupIndex) {
         buttonNodes = this.state.buttons.map((btn, i) => {
           if (i === 0 || i > lastBtnGroupIndex) {
@@ -155,16 +187,16 @@ export default class Pagination extends PureComponent<Props, State> {
             return this.renderDotsBox(i);
           }
         });
-      // Render first page button, first dots marker, central group, last dots marker and last page button
+        // Render first page button, first dots marker, central group, last dots marker and last page button
       } else {
         buttonNodes = this.state.buttons.map((btn, i) => {
           if (
-            i === 0
-            || i === lastBtnIndex
-            || (i >= curIndex - centralBtnGroupGap && i <= curIndex + centralBtnGroupGap)
+            i === 0 ||
+            i === lastBtnIndex ||
+            (i >= curIndex - centralBtnGroupGap && i <= curIndex + centralBtnGroupGap)
           ) {
             return this.renderBtn(btn, i);
-          } else if (i === 1 || i === (btnsLength - 2)) {
+          } else if (i === 1 || i === btnsLength - 2) {
             return this.renderDotsBox(i);
           }
         });
@@ -175,27 +207,44 @@ export default class Pagination extends PureComponent<Props, State> {
   }
 
   render() {
-    const { marginTop, leftBtnTxt, rightBtnTxt } = this.props;
-    return this.state.buttons.length > 1 && (
-      <div className="lls-pagination-container" style={{ marginTop }}>
-        <div className="lls-button-box">
-          <button
-            className="lls-arr-btn-left lls-button"
-            onClick={this.goToPrev}
-            style={{ visibility: this.state.showLeftArr ? 'visible' : 'hidden' }}
-          >
-            <span>{leftBtnTxt}</span>
-          </button>
-          {this.renderButtons()}
-          <button
-            className="lls-arr-btn-right lls-button"
-            onClick={this.goToNext}
-            style={{ visibility: this.state.showRightArr ? 'visible' : 'hidden' }}
-          >
-            <span>{rightBtnTxt}</span>
-          </button>
+    const { marginTop, leftBtnTxt, rightBtnTxt, showPageInput, pageInpLabel } = this.props;
+    return (
+      this.state.buttons.length > 1 && (
+        <div className="lls-pagination-container" style={{ marginTop }}>
+          <div className="lls-button-box">
+            <button
+              className="lls-arr-btn-left lls-button"
+              onClick={this.goToPrev}
+              style={{
+                visibility: this.state.showLeftArr ? 'visible' : 'hidden',
+              }}
+            >
+              <span>{leftBtnTxt}</span>
+            </button>
+            {this.renderButtons()}
+            <button
+              className="lls-arr-btn-right lls-button"
+              onClick={this.goToNext}
+              style={{
+                visibility: this.state.showRightArr ? 'visible' : 'hidden',
+              }}
+            >
+              <span>{rightBtnTxt}</span>
+            </button>
+            {showPageInput && (
+              <>
+                <div className="lls-goto-txt">{pageInpLabel}</div>
+                <input
+                  className="lls-goto-input"
+                  type="text"
+                  onFocus={this.inputGoToFocus}
+                  onBlur={this.inputGoToBlur}
+                />
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }
